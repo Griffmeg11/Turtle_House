@@ -1,0 +1,56 @@
+import turtle                                               # needed for drawings
+import math # needed for other maths functions
+import sys
+import time
+
+# going to build a house step by step
+house_size = int(input('How big is your house?: '))
+half_house = house_size/2
+
+for body in range(4):
+    turtle.forward(house_size)
+    turtle.right(90)
+
+roof_size = int(input('How tall is your roof?: '))
+rad_roof_elevation = math.atan(roof_size/half_house)        # inverse sin of opposite (roof_size) and half_house
+degree_roof_elevation = rad_roof_elevation * (180/math.pi)  # converting from radians to degrees
+roof_length = math.sqrt((roof_size**2)+(half_house**2))     # square root of opposite (roof size**2) + half_house**2
+recentre = (180-(90+degree_roof_elevation))
+
+turtle.left(degree_roof_elevation)                          # building the roof
+turtle.forward(roof_length)
+turtle.right(degree_roof_elevation * 2)
+turtle.forward(roof_length)
+turtle.right(recentre)                                       # roof done
+
+window_size = int(input('How big will your windows be?: '))  # building windows
+if window_size >= half_house:                                # Window check
+    print(" ")
+    print("please rethink your home budgeting options")
+    sys.exit("windows too large, you need to fit two windows")
+
+for window1 in range(4):
+    turtle.forward(window_size)
+    turtle.right(90)
+turtle.right(90)
+turtle.forward(house_size)
+turtle.left(90)
+for window2 in range(4):
+    turtle.forward(window_size)
+    turtle.left(90)                                         # windows done
+turtle.forward(house_size)                                  # navigate to door
+turtle.left(90)
+turtle.forward(half_house)                                  # now at halfway down the house
+
+door_size = int(input('How big is your door?: '))
+half_door = door_size/2
+turtle.forward(half_door)
+
+if door_size >= half_house:                                 # Door check
+    print(" ")
+    print("you're constructing a house not a shed")
+    sys.exit("door too large for house, please choose a smaller door")
+for door in range(4):
+    turtle.left(90)
+    turtle.forward(door_size)
+turtle.done()
